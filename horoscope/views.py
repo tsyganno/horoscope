@@ -2,7 +2,11 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 
-def get_horoscope_by_sign(request, sign_of_zodiac):
+def get_horoscope_by_sign_by_number(request, sign_of_zodiac: int):
+    return HttpResponse(f"Tsis is number {sign_of_zodiac}")
+
+
+def get_horoscope_by_sign(request, sign_of_zodiac: str):
 
     signs = {
         "aries": "Овен - первый знак зодиака, планета Марс (с 21 марта по 20 апреля).",
