@@ -1,9 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 
-from week_days.views import monday, tuesday
+from week_days.views import get_horoscope_by_sign
 
 urlpatterns = [
-    path('todo_week/monday/', monday),
-    path('todo_week/tuesday/', tuesday),
+    path('<str:sign_of_zodiac>/', get_horoscope_by_sign),
 ]
