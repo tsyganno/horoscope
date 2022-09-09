@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 
 signs = {
     "aries": "Овен - первый знак зодиака, планета Марс (с 21 марта по 20 апреля).",
@@ -16,15 +17,43 @@ signs = {
     "pisces": "Рыбы - двенадцатый знак зодиака, планеты Юпитер (с 20 февраля по 20 марта)."
 }
 
+zodiac_element = {
+    'fire': ['aries', 'leo', 'sagittarius'],
+    'earth': ['taurus', 'virgo', 'capricorn'],
+    'air': ['gemini', 'libra', 'aquarius'],
+    'water': ['cancer', 'scorpio', 'pisces']
+}
+
+
+def index(request):
+    zodiacs = list(signs)
+    response = '<br>'.join(zodiacs)
+    return HttpResponse(response)
+
 
 def get_horoscope_by_sign_by_number(request, sign_of_zodiac: int):
     zodiacs = list(signs)
     if sign_of_zodiac > (len(zodiacs)) or sign_of_zodiac <= 0:
         return HttpResponse("Неизвестный знак зодиака")
-    return HttpResponseRedirect(f'/horoscope/{zodiacs[sign_of_zodiac - 1]}')
+    name_zodiac = zodiacs[sign_of_zodiac - 1]
+    redirect_url = reverse('horoscope_name', args=(name_zodiac, ))
+    return HttpResponseRedirect(redirect_url)
 
 
 def get_horoscope_by_sign(request, sign_of_zodiac: str):
     if sign_of_zodiac.lower() in signs:
         return HttpResponse(signs[sign_of_zodiac.lower()])
     return HttpResponse("Неизвестный знак зодиака")
+
+
+def get_horoscope_type(request):
+    zodiacs = list(zodiac_element)
+    response = '<br>'.join(zodiacs)
+    return HttpResponse(response)
+
+
+def get_horoscope_type_element(request, element: str):
+    for key in zodiac_element.keys():
+        if key == element:
+            response = '<br>'.join(zodiac_element[key])
+            return HttpResponse(response)
