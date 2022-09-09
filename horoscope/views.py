@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.urls import reverse
 
 signs = {
@@ -22,6 +22,21 @@ zodiac_element = {
     'earth': ['taurus', 'virgo', 'capricorn'],
     'air': ['gemini', 'libra', 'aquarius'],
     'water': ['cancer', 'scorpio', 'pisces']
+}
+
+zodiac_dates = {
+    1:  {'capricorn': (1, 20),   'aquarius': (21, 31)},
+    2:  {'aquarius': (1, 19),    'pisces': (20, 29)},
+    3:  {'pisces': (1, 20),      'aries': (21, 31)},
+    4:  {'aries': (1, 20),       'taurus': (21, 30)},
+    5:  {'taurus': (1, 21),      'gemini': (22, 31)},
+    6:  {'gemini':  (1, 21),     'cancer': (22, 30)},
+    7:  {'cancer':  (1, 22),     'leo': (23, 31)},
+    8:  {'leo': (1, 21),         'virgo': (22, 31)},
+    9:  {'virgo': (1, 22),       'libra': (23, 30)},
+    10: {'libra': (1, 23),       'scorpio': (24, 31)},
+    11: {'scorpio': (1, 22),     'sagittarius': (23, 30)},
+    12: {'sagittarius': (1, 22), 'capricorn': (23, 31)}
 }
 
 
@@ -57,3 +72,13 @@ def get_horoscope_type_element(request, element: str):
         if key == element:
             response = '<br>'.join(zodiac_element[key])
             return HttpResponse(response)
+
+
+def get_info_about_zodiac_by_day(request, month: int, day: int):
+    try:
+        for sign, dates in zodiac_dates[month].items():
+            if dates[0] <= day <= dates[1]:
+                redirect_url = reverse('horoscope_name', args=(sign, ))
+                return HttpResponseRedirect(redirect_url)
+    except:
+        return HttpResponseNotFound(f"Что Вы имеете ввиду под месяцем - {month} и днем - {day}?")
