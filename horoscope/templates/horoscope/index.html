@@ -1,0 +1,11 @@
+{% extends 'horoscope/base.html' %}
+
+{% block title %}Меню{% endblock %}
+
+{% block content %}
+    <ul>
+        {% for zodiac in zodiacs %}
+            <li><a href="{% url 'horoscope_name' zodiac %}">{{ zodiac|title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

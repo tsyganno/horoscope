@@ -42,8 +42,13 @@ zodiac_dates = {
 
 def index(request):
     zodiacs = list(signs)
-    response = '<br>'.join(zodiacs)
-    return HttpResponse(response)
+    return render(
+        request,
+        'horoscope/index.html',
+        {
+            'zodiacs': zodiacs
+        }
+    )
 
 
 def get_horoscope_by_sign_by_number(request, sign_of_zodiac: int):
@@ -56,9 +61,15 @@ def get_horoscope_by_sign_by_number(request, sign_of_zodiac: int):
 
 
 def get_horoscope_by_sign(request, sign_of_zodiac: str):
-    if sign_of_zodiac.lower() in signs:
-        return HttpResponse(signs[sign_of_zodiac.lower()])
-    return HttpResponse("Неизвестный знак зодиака")
+    sign = signs.get(sign_of_zodiac)
+    return render(
+        request,
+        'horoscope/info_zodiac.html',
+        {
+            'description': sign,
+            'sign': sign_of_zodiac
+        }
+    )
 
 
 def get_horoscope_type(request):
