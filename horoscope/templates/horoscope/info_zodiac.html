@@ -3,9 +3,13 @@
 {% block title %}Гороскоп для {{ sign|upper }}{% endblock %}
 
 {% block content %}
+
+    {% include 'includes/navbar.html' %}
+
     {% if description is None %}
         <h2>Неправильный знак зодиака - {{ sign|upper }}</h2>
     {% else %}
         <h2>{{ description|capfirst }}</h2>
     {% endif %}
+
 {% endblock %}

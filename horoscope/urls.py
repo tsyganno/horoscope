@@ -5,7 +5,7 @@ from horoscope.views import index, get_horoscope_by_sign, get_horoscope_by_sign_
     get_horoscope_type_element, get_info_about_zodiac_by_day
 
 urlpatterns = [
-    path('', index),
+    path('', index, name='index'),
     path('type/', get_horoscope_type),
     path('type/<str:element>/', get_horoscope_type_element),
     path('<int:sign_of_zodiac>/', get_horoscope_by_sign_by_number),
