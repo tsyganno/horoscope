@@ -62,15 +62,13 @@ def get_horoscope_by_sign_by_number(request, sign_of_zodiac: int):
 
 def get_horoscope_by_sign(request, sign_of_zodiac: str):
     sign = signs.get(sign_of_zodiac)
-    zodiacs = list(signs)
     return render(
         request,
         'horoscope/info_zodiac.html',
         {
             'description': sign,
             'sign': sign_of_zodiac,
-            'name_sign': sign.split()[0],
-            'zodiacs': zodiacs
+            'zodiacs': signs
         }
     )
 
