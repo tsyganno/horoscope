@@ -1,7 +1,7 @@
-from django.contrib import admin
 from django.urls import path
 
-from geometry.views import rectangle_area, square_area, circle_area, get_rectangle_area, get_square_area, get_circle_area
+from geometry.views import rectangle_area, square_area, circle_area, get_rectangle_area, get_square_area, \
+    get_circle_area
 
 urlpatterns = [
     path('rectangle/<int:width>/<int:height>/', rectangle_area, name='rectangle_area'),

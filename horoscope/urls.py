@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.urls import path
 
 from horoscope.views import index, get_horoscope_by_sign, get_horoscope_by_sign_by_number, get_horoscope_type, \

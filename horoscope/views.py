@@ -41,12 +41,11 @@ zodiac_dates = {
 
 
 def index(request):
-    zodiacs = list(signs)
     return render(
         request,
         'horoscope/index.html',
         {
-            'zodiacs': zodiacs
+            'zodiacs': signs
         }
     )
 
